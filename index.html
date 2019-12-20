@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Portfolio | Pedro del Río</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
+  <link href="https://fonts.googleapis.com/css?family=Courier+Prime&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    * {
+      font-family: "Courier Prime", monospace;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 330px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="min-h-screen flex flex-col font-sans">
+    <!-- NAV-->
+    <nav class="flex items-center justify-between flex-wrap bg-orange-400 p-6 ">
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <img class="w-10 mx-3" src="./img/codificacion.svg" />
+
+        <span class="font-semibold text-xl tracking-tight" id="brand_nav">___</span>
+      </div>
+      <div class="block lg:hidden">
+        <button
+          class="flex items-center px-3 py-2 border rounded text-black border-black hover:text-white hover:border-white"
+          id="btnToggle" onclick="toggle()">
+          <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="menu">
+        <div class="text-sm lg:flex-grow">
+          <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-white mr-4">
+            Docs
+          </a>
+          <a href="#repos_section" class="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-white mr-4">
+            Repositorios
+          </a>
+          <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-white">
+            Blog
+          </a>
+        </div>
+        <div>
+          <a href="#"
+            class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Download</a>
+        </div>
+      </div>
+    </nav>
+    <!-- NAV-->
+    <!-- MAIN-->
+    <div class="flex-grow p-8 text-2xl container mx-auto">
+      Main content area!
+
+      <section id="repos_section" class=" mt-5 ">
+        <h2 class="text-3xl font-bold text-gray-800 mx-2 mb-3">
+          Mis Repositorios
+        </h2>
+        <p class="text-lg mb-3 text-gray-700 mx-2">
+          Explora en mis repositorios.
+        </p>
+
+        <div id="repos" class="md:flex md:justify-start flex-wrap  "></div>
+      </section>
+    </div>
+    <!-- MAIN-->
+    <!-- FOOTER-->
+    <footer class="bg-gray-800 text-white flex-grow py-8 pt-20 ">
+      <div class="md:flex md:justify-start flex-wrap text-center">
+        <div class="px-3 mb-3  md:w-1/3 ">...</div>
+        <div id="social_footer" class="px-3 mb-3  md:w-1/3 "></div>
+        <div class="px-3 mb-3  md:w-1/3 ">...
+        </div>
+      </div>
+      <div class="text-center text-sm">
+        <div class="">
+          <hr class="p-1 m-1 w-1/4 mx-auto">
+          Copyright © <span id="footer_year"></span> | All Rights Reserved
+        </div>
+        <div class="">Pedro Manuel del Río Marrón</div>
+      </div>
+    </footer>
+    <!-- FOOTER-->
+  </div>
+  <script src="./js/utils.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>
