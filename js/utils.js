@@ -167,6 +167,10 @@ function request(method, url) {
         xhr.open(method, url);
         xhr.onload = resolve;
         xhr.onerror = reject;
+        if (xhr.status === 200) {
+
+        }
+        // console.log(xhr)
         xhr.send();
     });
 }

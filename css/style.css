@@ -1,0 +1,55 @@
+* {
+    font-family: "Courier Prime", monospace;
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 330px;
+}
+
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+   }
+    50% {
+        opacity: 0.5;
+   }
+    100% {
+        opacity: 1;
+   }
+}
+.app > * {
+    display: none;
+}
+.app > *:last-child {
+    display: block;
+}
+.app > *:target {
+    display: block;
+    animation: fade 300ms linear 1;
+}
+.app > *:target ~ * {
+    display: none;
+}
+
+
+
+
+
+
+.timeline-item::before{
+    font-size: 0.5rem ;
+    font-family: "Font Awesome 5 Free";
+    content: "\f111";
+    margin-left: -2.5rem;
+    margin-top: 0.5rem;
+    position: absolute;
+
+}
+
+
+.timeline-item{
+   border-left: 1px solid;
+
+}

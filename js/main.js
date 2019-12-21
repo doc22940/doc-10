@@ -1,10 +1,58 @@
-let url = "https://api.github.com/users/pedelriomarron/repos";
+let user = "pedelriomarron"
+let url = `https://api.github.com/users/${user}/repos`;
 let rrss = [
   { href: "https://github.com/pedelriomarron", icon: "fab fa-github", class: "" },
   { href: "https://www.linkedin.com/in/pedelriomarron/", icon: "fab fa-linkedin", class: " hover:text-blue-500" },
   { href: "https://www.npmjs.com/~pedelriomarron", icon: "fab fa-npm", class: "hover:text-red-800" }
 
 ]
+let menuNavbar = [
+  { href: "#home", icon: "fas fa-home", text: "Home" },
+  { href: "#repositories", icon: "fas fa-briefcase", text: "Repositorios" },
+  { href: "#about-me", icon: "fas fa-user", text: "About Me" }
+
+]
+
+let dataTimeline = [
+  {
+    name: "Educación",
+    icon: "fa fa-graduation-cap",
+    items: [
+      {
+        title: "Desarrollo Web",
+        year: "2018 - Presente",
+        college: "IES Marqués de Comares & IES Trassierra"
+      },
+      {
+        title: "Administración de Sistemas",
+        year: "2016 - 2018",
+        college: "IES Marqués de Comares"
+      },
+      {
+        title: "Sistemas Microinfo. y Redes",
+        year: "2014 - 2016",
+        college: "CES Lope de Vega SCA"
+      }
+    ]
+  },
+  {
+    name: "Experiencia",
+    icon: "fas fa-briefcase",
+    items: [
+      {
+        title: "Prácticas: Desarrollador Web",
+        year: "abr de 2018 - jun de 2018",
+        college: "Eurotransportcar"
+      },
+      {
+        title: "Prácticas: Técnico Informático",
+        year: "mar 2016 - may 2016",
+        college: "PC-ON Córdoba"
+      }
+    ]
+  }
+]
+
 const menu = document.getElementById("menu");
 const toggle = () => menu.classList.toggle("hidden");
 
@@ -12,12 +60,11 @@ const toggle = () => menu.classList.toggle("hidden");
 
 window.onload = function () {
   basic()
-  createFooter(rrss, "social_footer")
-  addSlowHref()
+  createItemsNav(menuNavbar, "menu");
+  createSocialFooter(rrss, "social_footer")
+  //addSlowHref()
   cargarRepos(url)
-
-
-
+  createTimeline(dataTimeline, "timeline")
 
 
 
@@ -42,30 +89,28 @@ const cargarRepos = async (url) => {
     });
     let config = await request("GET", `https://raw.githubusercontent.com/${repo.full_name}/master/config/config`)
 
+    //console.log(config.target.status)
+    if (config.target.status === 200) {
 
-    //console.log(config.target.response)
-    //  config = JSON.parse(config.target.response)
-    //console.log(config.target.response)
-    let languagesURL = `https://api.github.com/repos/${repo.full_name}/languages`;
-    let a = JSON.parse(config.target.response)
-    let data = a[0];
+      let languagesURL = `https://api.github.com/repos/${repo.full_name}/languages`;
+      let a = JSON.parse(config.target.response)
+      let data = a[0];
 
-    let languages = await request("GET", languagesURL)
-    languages = JSON.parse(languages.target.response)
-    languages = Object.keys(languages)
-    let msj_lan = ""
-    languages.map(lan => {
-      msj_lan += `<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#${lan}</span>`
-    })
+      let languages = await request("GET", languagesURL)
+      languages = JSON.parse(languages.target.response)
+      languages = Object.keys(languages)
+      let msj_lan = ""
+      languages.map(lan => {
+        msj_lan += `<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#${lan}</span>`
+      })
 
-
-    if (data.active) {
-      let img = `https://raw.githubusercontent.com/${repo.full_name}/master/config/preview.png`
-      if (repo.homepage == null) repo.homepage = repo.svn_url
-      mensaje += createCard({ homepage: repo.homepage, desc: repo.description, img, url: repo.svn_url, name: repo.name, languges: msj_lan })
-      reposElement.innerHTML = mensaje;
+      if (data.active) {
+        let img = `https://raw.githubusercontent.com/${repo.full_name}/master/config/preview.png`
+        if (repo.homepage == null) repo.homepage = repo.svn_url
+        mensaje += createCard({ homepage: repo.homepage, desc: repo.description, img, url: repo.svn_url, name: repo.name, languges: msj_lan })
+        reposElement.innerHTML = mensaje;
+      }
     }
-
   });
 }
 
@@ -130,7 +175,7 @@ const addSlowHref = () => {
 }
 
 
-const createFooter = (list, id) => {
+const createSocialFooter = (list, id) => {
   let footer1 = createElement("div", { class: "px-6 text-3xl text-gray-500" })
   list.map(icon => {
     let a = createElement("a", { class: `hover:text-gray-700 p-2 ${icon.class}`, href: icon.href })
@@ -140,3 +185,54 @@ const createFooter = (list, id) => {
   })
   document.getElementById(id).appendChild(footer1)
 }
+
+const createItemsNav = (list, id) => {
+  let menu = createElement("div", { class: "text-sm lg:flex-grow" })
+  list.map(icon => {
+    let a = createElement("a", { class: `block mt-4 lg:inline-block lg:mt-0 text-grey-800 hover:text-white mr-4`, href: icon.href })
+    let i = createElement("i", { class: icon.icon })
+    a.appendChild(i)
+    a.appendChild(document.createTextNode(` ${icon.text}`))
+    menu.appendChild(a)
+  })
+
+  let nav = document.getElementById(id)//.appendChild(menu)
+  nav.insertBefore(menu, nav.firstChild);
+}
+
+const createTimeline = (list, id) => {
+
+  list.map(icon => {
+    let section = createElement("div", { class: "lg:w-1/2 sm:w-full" })
+    let i = createElement("i", { class: `rounded-full p-3 text-2xl bg-blue-400 ${icon.icon} ` })
+    let div = createElement("div", { class: "uppercase" })
+    div.appendChild(i)
+    div.appendChild(document.createTextNode(` ${icon.name}`))
+    section.appendChild(div)
+
+    let ul = createElement("ul", { class: "pl-10" })
+
+
+    icon.items.map(item => {
+      let li = createElement("li", { class: "bg-blue-100 p-3 m-3 rounded timeline-item" })
+      let title = createElement("div", { class: "text-xl  pb-3" })
+      title.appendChild(document.createTextNode(item.title))
+      let year = createElement("div", { class: "text-xs pb-1" })
+      year.appendChild(document.createTextNode(item.year))
+      let college = createElement("div", { class: "text-sm" })
+      college.appendChild(document.createTextNode(item.college))
+
+      li.appendChild(title)
+      li.appendChild(year)
+      li.appendChild(college)
+
+      ul.appendChild(li)
+    })
+
+    section.appendChild(ul)
+    document.getElementById(id).appendChild(section)
+
+
+  })
+}
+
