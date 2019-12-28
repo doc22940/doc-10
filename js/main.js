@@ -7,11 +7,12 @@ let rrss = [
 
 ]
 let menuNavbar = [
-  { href: "#home", icon: "fas fa-home", text: "Home" },
-  { href: "#repositories", icon: "fas fa-briefcase", text: "Repositorios" },
-  { href: "#about-me", icon: "fas fa-user", text: "About Me" }
-
+  { href: "#home", icon: "fas fa-home", text: "Home", header: { title: "", subtitle: "" } },
+  { href: "#repositories", icon: "fas fa-briefcase", text: "Repositorios", header: { title: "Mis Repositorios", subtitle: "Explora mis repositorios." } },
+  // { href: "#about-me", icon: "fas fa-user", text: "About Me", header: { title: "ghgh", subtitle: "" } },
+  { href: "#cv", icon: "fas fa-book", text: "Currículum", header: { title: "Mi Currículum", subtitle: "Aquí te muestro mi experiencia academica y laboral." } }
 ]
+
 
 let dataTimeline = [
   {
@@ -62,9 +63,10 @@ window.onload = function () {
   basic()
   createItemsNav(menuNavbar, "menu");
   createSocialFooter(rrss, "social_footer")
-  //addSlowHref()
+  //addSlowHref() 
   cargarRepos(url)
   createTimeline(dataTimeline, "timeline")
+  headerPage(menuNavbar)
 
 
 
@@ -236,3 +238,24 @@ const createTimeline = (list, id) => {
   })
 }
 
+
+const headerPage = (list) => {
+  list.map(item => {
+
+    if (typeof item.header != "undefined") {
+      let parent = document.getElementById(item.href.substr(1))
+      let header = createElement("header", { class: `p-10 pl-0 pt-32` })
+      let div = createElement("div", { class: `text-3xl font-bold text-gray-800 mx-2 mb-3 uppercase md:text-5xl sm:text-xl ` })
+      div.appendChild(document.createTextNode(item.header.title))
+      let p = createElement("p", { class: `text-lg mb-3 text-gray-700 mx-2` })
+      p.appendChild(document.createTextNode(item.header.subtitle))
+      header.appendChild(div)
+      header.appendChild(p)
+      parent.appendChild(createElement("div"))
+      parent.insertBefore(header, parent.firstChild);
+
+    }
+  })
+
+
+}
