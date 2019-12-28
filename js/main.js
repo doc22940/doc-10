@@ -1,3 +1,5 @@
+let version = "0.0.1"
+let autor = "Pedro Manuel del Río Marrón"
 let user = "pedelriomarron"
 let url = `https://api.github.com/users/${user}/repos`;
 let rrss = [
@@ -7,7 +9,7 @@ let rrss = [
 
 ]
 let menuNavbar = [
-  { href: "#home", icon: "fas fa-home", text: "Home", header: { title: "", subtitle: "" } },
+  { href: "#home", icon: "fas fa-home", text: "Home" },
   { href: "#repositories", icon: "fas fa-briefcase", text: "Repositorios", header: { title: "Mis Repositorios", subtitle: "Explora mis repositorios." } },
   // { href: "#about-me", icon: "fas fa-user", text: "About Me", header: { title: "ghgh", subtitle: "" } },
   { href: "#cv", icon: "fas fa-book", text: "Currículum", header: { title: "Mi Currículum", subtitle: "Aquí te muestro mi experiencia academica y laboral." } }
@@ -63,6 +65,8 @@ window.onload = function () {
   basic()
   createItemsNav(menuNavbar, "menu");
   createSocialFooter(rrss, "social_footer")
+  createVersion()
+  createAutor()
   //addSlowHref() 
   cargarRepos(url)
   createTimeline(dataTimeline, "timeline")
@@ -256,6 +260,15 @@ const headerPage = (list) => {
 
     }
   })
+}
+
+const createVersion = () => {
+  let span = document.getElementById("version")
+  span.appendChild(document.createTextNode(`v.${version}`))
+}
 
 
+const createAutor = () => {
+  let span = document.getElementById("autor")
+  span.appendChild(document.createTextNode(`dev by ${autor}`))
 }
